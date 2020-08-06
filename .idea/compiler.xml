@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="api-json" />
+        <module name="client" />
+        <module name="config" />
+        <module name="eureka" />
+        <module name="login" />
+        <module name="menu" />
+        <module name="order" />
+        <module name="payment" />
+        <module name="springcloud2020" />
+        <module name="task" />
+        <module name="user" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-json" target="1.8" />
+      <module name="client" target="1.8" />
+      <module name="config" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="login" target="1.8" />
+      <module name="menu" target="1.8" />
+      <module name="order" target="1.8" />
+      <module name="payment" target="1.8" />
+      <module name="springcloud2020" target="1.8" />
+      <module name="task" target="1.8" />
+      <module name="user" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

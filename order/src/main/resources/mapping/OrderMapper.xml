@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.OrderRepository">
+     <select id="findAll" resultType="order">
+         select * from t_order limit #{param1},#{param2}
+     </select>
+    <insert id="save" parameterType="order">
+        insert into t_order(id,user_id	,payment,payment_type,state,telephone,create_time,update_time
+        ,payment_time,consgin_time,end_time,close_time,shipping_name,shipping_code) values
+        (#{id},#{user_id},#{payment},#{payment_type },#{state},#{telephone},#{create_time},#{update_time},#{payment_time},#{consgin_time}
+        ,#{end_time}.#{close_time},#{shipping_name},#{shipping_code})
+    </insert>
+    <update id="update" parameterType="order">
+        update t_order set
+        user_id =#{user_id},payment=#{payment},payment_type=#{payment_type },state=#{state},
+        create_time=#{create_time},update_time=#{update_time},payment_time=#{payment_time},
+        consgin_time=#{consgin_time},end_time=#{end_time},close_time=#{close_time},shipping_name=#{shipping_name},shipping_code=#{shipping_code}
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="string">
+        delete from t_order where id = #{id}
+    </delete>
+    <select id="findById"  parameterType="string" resultType="order">
+        select * from t_order where id = #{id}
+    </select>
+    <select id="count"  resultType="int">
+        select count(id) from t_order
+    </select>
+    </mapper>

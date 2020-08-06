@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.OrderRepository">
+
+    <select id="findOrderMonth" resultType="com.ns.dto.OrderDto">
+		select sum(t.payment) as order_payment,count(*) as order_num from t_order t
+		 where t.end_time BETWEEN #{createTime} and #{closeTime};
+	</select>
+</mapper>

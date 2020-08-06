@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.UserRepository">
+    <resultMap id="userDtoMap" type="com.ns.dto.UserDto">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <association property="rid" column="rid" javaType="com.ns.dto.RoleDto" select="com.ns.repository.RoleRepository.findById"/>
+    </resultMap>
+    <select id="login" resultMap="userDtoMap" parameterType="string" >
+        select * from t_user where username = #{param1} and password = #{param2}
+    </select>
+    <select id="findByUserName" parameterType="String" resultMap="userDtoMap">
+        select * from t_user where username=#{username}
+    </select>
+</mapper>

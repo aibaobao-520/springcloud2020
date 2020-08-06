@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.OrderMonthRepository">
+
+    <select id="findAll" resultType="com.ns.entity.OrderMonth">
+		select * from t_order_month
+	</select>
+	<select id="findDate" resultType="com.ns.entity.OrderMonth" >
+		select * from t_order_month where data like #{substring}
+	</select>
+	<insert id="save">
+        insert into t_order_month(order_num,order_payment,data) values
+        (#{order_num},#{order_payment},#{data})
+    </insert>
+	<select id="findYearDate" resultType="com.ns.dto.OrderDto">
+	select sum(order_payment) as order_payment ,sum(order_num) as order_num from t_order_month where data like #{s}
+	</select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.OrderItemRepository">
+    <resultMap id="orderItemMap" type="OrderItem">
+        <id property="id" column="id"/>
+        <result property="mid" column="mid"/>
+        <result property="num" column="num"/>
+        <result property="title" column="title"/>
+        <result property="total_fee" column="totalFee"/>
+        <result property="pic_path" column="picPath"/>
+        <!-- 映射type -->
+        <association property="oid" javaType="order">
+            <id property="id" column="oid"/>
+            <result property="user_id" column="uid"/>
+            <result property="payment" column="payment"/>
+            <result property="payment_type" column="paymentType"/>
+            <result property="state" column="state"/>
+            <result property="create_time" column="createTime"/>
+            <result property="update_time" column="updateTime"/>
+            <result property="payment_time" column="paymentTime"/>
+            <result property="consgin_time" column="consginTime"/>
+            <result property="end_time" column="endTime"/>
+            <result property="close_time" column="closeTime"/>
+            <result property="shipping_name" column="shippingName"/>
+            <result property="shipping_code" column="shippingCode"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="orderItemMap">
+         select toi.id,toi.num,toi.mid,toi.title,toi.total_fee totalFee,
+          toi.pic_path picPath,o.id oid,o.user_id uid,o.payment,o.payment_type paymentType,
+          o.state,o.create_time createTime,o.update_time updateTime,o.payment_time paymentTime,
+          o.consgin_time consginTime,o.end_time endTime,o.close_time closeTime,o.shipping_name shippingName,
+          o.shipping_code shippingCode
+          from t_order_item toi,t_order o where o.id=toi.oid
+     </select>
+    <insert id="save" parameterType="OrderItem">
+        insert into t_order_item(mid,num,title,total_fee,pic_path,oid) values
+        (#{mid},#{num},#{title},#{total_fee},#{pic_path},#{order.id})
+    </insert>
+    <update id="update" parameterType="OrderItem">
+        update  t_order_item set ,mid=#{mid},num=#{num},title=#{title},total_fee=#{total_fee},pic_path=#{pic_path},oid=#{order.id}
+    </update>
+    <delete id="deleteByOid" parameterType="String">
+        delete from t_order_item where oid = #{id}
+    </delete>
+  <select id="findById"  parameterType="long" resultType="OrderItem">
+        select * from t_order_item where id = #{id}
+    </select>
+    <select id="findByOid"  parameterType="string" resultMap="orderItemMap">
+          select toi.id,toi.num,toi.mid,toi.title,toi.total_fee totalFee,
+          toi.pic_path picPath,o.id oid,o.user_id uid,o.payment,o.payment_type paymentType,
+          o.state,o.create_time createTime,o.update_time updateTime,o.payment_time paymentTime,
+          o.consgin_time consginTime,o.end_time endTime,o.close_time closeTime,o.shipping_name shippingName,
+          o.shipping_code shippingCode
+          from t_order_item toi,t_order o where o.id=toi.oid and  o.id=#{id}
+    </select>
+    </mapper>

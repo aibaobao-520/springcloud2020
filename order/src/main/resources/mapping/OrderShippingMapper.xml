@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ns.repository.OrderShippingRepository">
+    <resultMap id="OrderShippingMap" type="OrderShipping">
+        <id property="id" column="id"/>
+        <result property="receiver_name" column="receiverName"/>
+        <result property="receiver_phone" column="receiverPhone"/>
+        <result property="receiver_areas" column="receiverAreas"/>
+        <result property="receiver_provinces" column="receiverProvinces"/>
+        <result property="receiver_city" column="receiverCity"/>
+        <result property="receiver_address" column="receiverAddress"/>
+        <result property="create_time" column="createTime"/>
+        <result property="update_time" column="updateTime"/>
+        <!-- 映射type -->
+        <association property="oid" javaType="order">
+            <id property="id" column="oid"/>
+            <result property="user_id" column="uid"/>
+            <result property="payment" column="payment"/>
+            <result property="payment_type" column="paymentType"/>
+            <result property="state" column="state"/>
+            <result property="create_time" column="createTime"/>
+            <result property="update_time" column="updateTime"/>
+            <result property="payment_time" column="paymentTime"/>
+            <result property="consgin_time" column="consginTime"/>
+            <result property="end_time" column="endTime"/>
+            <result property="close_time" column="closeTime"/>
+            <result property="shipping_name" column="shippingName"/>
+            <result property="shipping_code" column="shippingCode"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="OrderShippingMap">
+         select  osh.receiver_name receiverName,osh.receiver_phone receiverPhone,osh.receiver_areas receiverAreas,
+         osh.receiver_provinces receiverProvinces,osh.receiver_city receiverCity,osh.receiver_address receiverAddress,
+         osh.create_time createTime,  osh.update_time updateTime,
+          o.id oid,o.user_id uid,o.payment,o.payment_type paymentType,
+          o.state,o.create_time createTime,o.update_time updateTime,o.payment_time paymentTime,
+          o.consgin_time consginTime,o.end_time endTime,o.close_time closeTime,o.shipping_name shippingName,
+          o.shipping_code shippingCode
+          from t_order_shipping osh,t_order o where o.id=osh.oid
+     </select>
+    <insert id="save" parameterType="OrderShipping">
+        insert into t_order_Shipping(receiver_name,receiver_phone ,receiver_areas ,receiver_provinces,receiver_city,receiver_address,
+        create_time,update_time,oid) values
+        (#{receiver_name},#{receiver_phone},#{receiver_areas},#{receiver_provinces},#{receiver_city},#{receiver_address},
+        #{create_time},#{update_time},
+        #{order.id})
+    </insert>
+    <update id="update" parameterType="OrderItem">
+        update  t_order_shipping set ,receiver_name=#{receiver_name},eceiver_phone=#{eceiver_phone},receiver_areas =#{receiver_areas},
+       receiver_provinces=#{receiver_provinces},receiver_city=#{receiver_city},create_time=#{create_time},update_time=#{update_time},oid=#{order.id}
+    </update>
+    <delete id="deleteByOid" parameterType="String">
+        delete from t_order_shipping where oid = #{id}
+    </delete>
+   <select id="findById"  parameterType="long" resultType="OrderShipping">
+        select * from t_order_shipping where id = #{id}
+    </select>
+    <select id="findByOId"  parameterType="string" resultMap="OrderShippingMap">
+            select  osh.receiver_name receiverName,osh.receiver_phone receiverPhone,osh.receiver_areas  receiverAreas ,
+         osh.receiver_provinces receiverProvinces,osh.receiver_city receiverCity,osh.receiver_address receiverAddress,
+          osh.create_time createTime,  osh.update_time updateTime,
+          o.id oid,o.user_id uid,o.payment,o.payment_type paymentType,
+          o.state,o.create_time createTime,o.update_time updateTime,o.payment_time paymentTime,
+          o.consgin_time consginTime,o.end_time endTime,o.close_time closeTime,o.shipping_name shippingName,
+          o.shipping_code shippingCode
+          from t_order_shipping osh,t_order o where o.id=osh.oid  and o.id=#{id}
+    </select>
+    </mapper>
